@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  engine:
+    image: anuragkochar/opinion-trading-platform-engine:latest # Replace with your Docker Hub username and image name
+    container_name: engine
+    ports:
+      - "4000:4000" # Map container port 4000 to host port 4000
+    env_file:
+      - .env # Load environment variables from the .env file
+    networks:
+      - app-network # Attach to the shared network
+
+  ws:
+    image: anuragkochar/opinion-trading-platform-ws:env # Replace with your Docker Hub username and image name
+    container_name: ws
+    ports:
+      - "5000:5000" # Map container port 5000 to host port 5000
+    env_file:
+      - .env # Load environment variables from the .env file
+    networks:
+      - app-network # Attach to the shared network
+
+networks:
+  app-network:
+    driver: bridge
